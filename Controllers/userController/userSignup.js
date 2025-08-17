@@ -4,8 +4,7 @@ import { createToken } from '../../Config/createToken.js';
 
 const userSignup = async (req, res) => {
   try {
-    const { name, email, password, imageUrl  } = req.body;
-    const image = req.file ? req.file.filename : null;
+    const { name, email, password  } = req.body;
 
     const exists = await userModel.findOne({ email });
     if (exists) {
@@ -34,12 +33,11 @@ const userSignup = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      image
     });
 
     await newUser.save();
     const token = createToken(newUser._id)
-    return res.json({ success: true, message: "User registered successfully",token,newUser });
+    return res.status(200).json({ success: true, message: "User registered successfully",token,newUser });
 
   } catch (error) {
     return res.status(500).json({ success: false, message: "Server error", error: error.message });

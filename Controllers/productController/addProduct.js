@@ -10,7 +10,7 @@ export const addProduct = async (req, res) => {
       category,
       subCategory,
       sizes,
-      color,
+      
       bestseller,
     } = req.body;
 
@@ -40,22 +40,9 @@ export const addProduct = async (req, res) => {
       subCategory,
       bestseller: bestseller === "true" ? true : false,
       sizes: JSON.parse(sizes),
-      color,
       image: imagesUrl,
       date: Date.now(),
     };
-
-    // console.log(
-    //   name,
-    //   description,
-    //   price,
-    //   category,
-    //   subCategory,
-    //   sizes,
-    //   bestseller
-    // );
-    // console.log("image url",imagesUrl); 
-    // console.log(productData);
 
     const product = new productModel(productData)
     await product.save()

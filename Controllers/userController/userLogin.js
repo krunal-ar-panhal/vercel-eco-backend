@@ -1,6 +1,6 @@
-import bcrypt from 'bcryptjs';
-import userModel from '../../Models/userModel.js';
-import { createToken } from '../../Config/createToken.js';
+import bcrypt from "bcryptjs";
+import userModel from "../../Models/userModel.js";
+import { createToken } from "../../Config/createToken.js";
 
 const userLogin = async (req, res) => {
   try {
@@ -26,10 +26,20 @@ const userLogin = async (req, res) => {
       return res.json({ success: false, message: "Incorrect password" });
     }
 
-    const token = createToken(user._id); 
-    return res.json({ success: true, message: "Login successful", token, user,imageUrl: user.imageUrl,});
+    const token = createToken(user._id);
+    return res
+      .status(200)
+      .json({
+        success: true,
+        message: "Login successful",
+        token,
+        user,
+      
+      });
   } catch (error) {
-    return res.status(500).json({ success: false, message: "Server error", error: error.message });
+    return res
+      .status(500)
+      .json({ success: false, message: "Server error", error: error.message });
   }
 };
 

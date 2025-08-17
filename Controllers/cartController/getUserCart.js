@@ -2,8 +2,7 @@ import userModel from "../../Models/userModel.js";
 
 export const getUserCart = async (req, res) => {
     try {
-      const { userId } = req.body;
-  
+ const userId = req.userId;  
       const userData = await userModel.findById(userId);
       if (!userData) {
         return res.status(404).json({ success: false, message: "User not found" });
